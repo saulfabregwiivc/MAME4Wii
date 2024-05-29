@@ -5595,6 +5595,31 @@ BOMULEUL CHAJARA SEGA ST-V  1997/04/11
 //# DRIVER( hellngt )   /* GX810 (c)1998 */
 #endif
 
+/* Konami 'Mystic Warriors' hardware games */
+#ifdef __GAME__MYSTWARR__
+    DRIVER( gaiapols )  /* GX123 (c) 1993 (Europe) */
+    DRIVER( gaiapolsu ) /* GX123 (c) 1993 (US) */
+    DRIVER( gaiapolsj ) /* GX123 (c) 1993 (Japan) */
+    DRIVER( mystwarr )  /* GX128 (c) 1993 (World) */
+    DRIVER( mystwarru ) /* GX128 (c) 1993 (US) */
+    DRIVER( mystwarrj ) /* GX128 (c) 1993 (Japan) */
+    DRIVER( viostorm )  /* GX168 (c) 1993 (Europe) */
+    DRIVER( viostormu ) /* GX168 (c) 1993 (US) */
+    DRIVER( viostormub )    /* GX168 (c) 1993 (US) */
+    DRIVER( viostormj ) /* GX168 (c) 1993 (Japan) */
+    DRIVER( viostorma ) /* GX168 (c) 1993 (Asia) */
+    DRIVER( mmaulers )  /* GX170 (c) 1993 (Europe) */
+    DRIVER( dadandrn )  /* GX170 (c) 1993 (Japan) */
+    DRIVER( metamrph )  /* GX224 (c) 1993 (Europe) */
+    DRIVER( metamrphu ) /* GX224 (c) 1993 (US) */
+    DRIVER( metamrphj ) /* GX224 (c) 1993 (Japan) */
+    DRIVER( mtlchamp )  /* GX234 (c) 1993 (World) */
+    DRIVER( mtlchamp1 ) /* GX234 (c) 1993 (World) */
+    DRIVER( mtlchampu ) /* GX234 (c) 1993 (US) */
+    DRIVER( mtlchampj ) /* GX234 (c) 1993 (Japan) */
+    DRIVER( mtlchampa ) /* GX234 (c) 1993 (Japan) */
+#endif
+
     /* Exidy games */
 #ifdef __GAME__EXIDY__
     DRIVER( carpolo )   /* (c) 1977 */
