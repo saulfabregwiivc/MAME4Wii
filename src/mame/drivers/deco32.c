@@ -2982,6 +2982,7 @@ ROM_START( nslashers )
 	ROM_LOAD( "mbh-11.16l", 0x000000,  0x80000,  CRC(0ec40b6b) SHA1(9fef44149608ae2a00f6a75a6f77f2efcab6e78e) )
 ROM_END
 
+
 static DRIVER_INIT( captaven )
 {
 	deco56_decrypt_gfx(machine, "gfx1");
