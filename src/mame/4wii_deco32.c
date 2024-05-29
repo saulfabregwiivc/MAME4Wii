@@ -47,24 +47,24 @@ const game_driver * const drivers[] __attribute__((aligned(32))) =
 #else   /* DRIVER_RECURSIVE */
 
     /* Data East DECO32 (32-bit) games */
-    DRIVER( captaven )	/* MAN (c) 1991 Data East Corporation (Asia) */
-    DRIVER( captavena )	/* MAN (c) 1991 Data East Corporation (Asia) */
-    DRIVER( captavene )	/* MAN (c) 1991 Data East Corporation (UK) */
-    DRIVER( captavenu )	/* MAN (c) 1991 Data East Corporation (US) */
-    DRIVER( captavenuu )	/* MAN (c) 1991 Data East Corporation (US) */
-    DRIVER( captavenua )	/* MAN (c) 1991 Data East Corporation (US) */
-    DRIVER( captavenj )	/* MAN (c) 1991 Data East Corporation (Japan) */
-    DRIVER( dragngun )	/* MAR (c) 1992 Data East Corporation (US) */
-    DRIVER( fghthist )	/* MBF (c) 1993 Data East Corporation (World) */
-    DRIVER( fghthistu )	/* MBF (c) 1993 Data East Corporation (US) */
-    DRIVER( fghthista )	/* MBF (c) 1993 Data East Corporation (US) */
-    DRIVER( fghthistj )	/* MBF (c) 1993 Data East Corporation (Japan) */
-    DRIVER( lockload )	/* MBM (c) 1994 Data East Corporation (US) */
-    DRIVER( lockloadu )	/* MBM (c) 1994 Data East Corporation (US) */
-    DRIVER( nslasher )	/* MBH (c) 1993 Data East Corporation */
-    DRIVER( nslasherj )	/* MBH (c) 1993 Data East Corporation (Japan)*/
-    DRIVER( nslashers )	/* MBH (c) 1993 Data East Corporation (Japan)*/
-    DRIVER( tattass )	/* prototype (c) 1994 Data East Pinball (US) */
-    DRIVER( tattassa )	/* prototype (c) 1994 Data East Pinball (Asia) */
+    DRIVER( captaven )  /* MAN (c) 1991 Data East Corporation (Asia) */
+    DRIVER( captavena ) /* MAN (c) 1991 Data East Corporation (Asia) */
+    DRIVER( captavene ) /* MAN (c) 1991 Data East Corporation (UK) */
+    DRIVER( captavenu ) /* MAN (c) 1991 Data East Corporation (US) */
+    DRIVER( captavenuu )    /* MAN (c) 1991 Data East Corporation (US) */
+    DRIVER( captavenua )    /* MAN (c) 1991 Data East Corporation (US) */
+    DRIVER( captavenj ) /* MAN (c) 1991 Data East Corporation (Japan) */
+    DRIVER( dragngun )  /* MAR (c) 1992 Data East Corporation (US) */
+    DRIVER( fghthist )  /* MBF (c) 1993 Data East Corporation (World) */
+    DRIVER( fghthistu ) /* MBF (c) 1993 Data East Corporation (US) */
+    DRIVER( fghthista ) /* MBF (c) 1993 Data East Corporation (US) */
+    DRIVER( fghthistj ) /* MBF (c) 1993 Data East Corporation (Japan) */
+    DRIVER( nslasher )  /* MBH (c) 1993 Data East Corporation */
+    DRIVER( nslasherj ) /* MBH (c) 1993 Data East Corporation (Japan)*/
+    DRIVER( nslashers ) /* MBH (c) 1993 Data East Corporation (Japan)*/
+    DRIVER( lockload )  /* MBM (c) 1994 Data East Corporation (US) */
+    DRIVER( lockloadu ) /* MBM (c) 1994 Data East Corporation (US) */
+    DRIVER( tattass )   /* prototype (c) 1994 Data East Pinball (US) */
+    DRIVER( tattassa )  /* prototype (c) 1994 Data East Pinball (Asia) */
 
 #endif  /* DRIVER_RECURSIVE */
