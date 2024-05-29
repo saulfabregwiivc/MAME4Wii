@@ -380,7 +380,6 @@ static READ32_HANDLER( dragngun_service_r )
 	return input_port_read(space->machine, "IN2");
 }
 
-#if 0
 static READ32_HANDLER( lockload_gun_mirror_r )
 {
 //logerror("%08x:Read gun %d\n",cpu_get_pc(space->cpu),offset);
@@ -389,7 +388,6 @@ static READ32_HANDLER( lockload_gun_mirror_r )
 		return input_port_read(space->machine, "IN4") | ((mame_rand(space->machine)%0xff)<<16);
 	return input_port_read(space->machine, "IN3") | input_port_read(space->machine, "LIGHT0_X") | (input_port_read(space->machine, "LIGHT0_X")<<16) | (input_port_read(space->machine, "LIGHT0_X")<<24); //((mame_rand(space->machine)%0xff)<<16);
 }
-#endif
 
 static READ32_HANDLER( dragngun_prot_r )
 {
@@ -448,10 +446,9 @@ static WRITE32_HANDLER( dragngun_eeprom_w )
 }
 
 /**********************************************************************************/
-#if 0
+
 static int tattass_eprom_bit;
-#endif
-#if 0
+
 static READ32_HANDLER( tattass_prot_r )
 {
 	switch (offset<<1) {
@@ -464,8 +461,7 @@ static READ32_HANDLER( tattass_prot_r )
 
 	return 0xffffffff;
 }
-#endif
-#if 0
+
 static WRITE32_HANDLER( tattass_prot_w )
 {
 	/* Only sound port of chip is used - no protection */
@@ -476,8 +472,7 @@ static WRITE32_HANDLER( tattass_prot_w )
 		soundlatch_w(space,0,soundcommand);
 	}
 }
-#endif
-#if 0
+
 static WRITE32_HANDLER( tattass_control_w )
 {
 	static int lastClock=0;
@@ -613,7 +608,7 @@ static WRITE32_HANDLER( tattass_control_w )
 	/* Bit 0x100 ?? */
 	//logerror("%08x: %08x data\n",data,mem_mask);
 }
-#endif
+
 /**********************************************************************************/
 
 static READ32_HANDLER( nslasher_prot_r )
@@ -724,7 +719,6 @@ static ADDRESS_MAP_START( fghthist_map, ADDRESS_SPACE_PROGRAM, 32 )
 	AM_RANGE(0x208800, 0x208803) AM_WRITENOP /* ? */
 ADDRESS_MAP_END
 
-#if 0
 static ADDRESS_MAP_START( fghthsta_memmap, ADDRESS_SPACE_PROGRAM, 32 )
 	AM_RANGE(0x000000, 0x0fffff) AM_READ(SMH_ROM) AM_WRITE(SMH_ROM)
 	AM_RANGE(0x100000, 0x11ffff) AM_READ(SMH_RAM) AM_WRITE(SMH_RAM) AM_BASE(&deco32_ram)
@@ -753,7 +747,6 @@ static ADDRESS_MAP_START( fghthsta_memmap, ADDRESS_SPACE_PROGRAM, 32 )
 
 	AM_RANGE(0x200000, 0x200fff) AM_READ(deco16_146_fghthist_prot_r) AM_WRITE(deco16_146_fghthist_prot_w) AM_BASE(&deco32_prot_ram)
 ADDRESS_MAP_END
-#endif
 
 static ADDRESS_MAP_START( dragngun_map, ADDRESS_SPACE_PROGRAM, 32 )
 	AM_RANGE(0x000000, 0x0fffff) AM_ROM
@@ -802,7 +795,6 @@ static ADDRESS_MAP_START( dragngun_map, ADDRESS_SPACE_PROGRAM, 32 )
 	AM_RANGE(0x500000, 0x500003) AM_WRITE(dragngun_sprite_control_w)
 ADDRESS_MAP_END
 
-#if 0
 static ADDRESS_MAP_START( lockload_map, ADDRESS_SPACE_PROGRAM, 32 )
 	AM_RANGE(0x000000, 0x0fffff) AM_ROM
 	AM_RANGE(0x100000, 0x11ffff) AM_RAM AM_BASE(&deco32_ram)
@@ -848,8 +840,7 @@ static ADDRESS_MAP_START( lockload_map, ADDRESS_SPACE_PROGRAM, 32 )
 	AM_RANGE(0x440000, 0x440003) AM_READ(dragngun_service_r)
 	AM_RANGE(0x500000, 0x500003) AM_WRITE(dragngun_sprite_control_w)
 ADDRESS_MAP_END
-#endif
-#if 0
+
 static ADDRESS_MAP_START( tattass_map, ADDRESS_SPACE_PROGRAM, 32 )
 
 	AM_RANGE(0x000000, 0x0f7fff) AM_ROM
@@ -894,7 +885,6 @@ static ADDRESS_MAP_START( tattass_map, ADDRESS_SPACE_PROGRAM, 32 )
 
 	AM_RANGE(0x200000, 0x200fff) AM_READWRITE(tattass_prot_r, tattass_prot_w) AM_BASE(&deco32_prot_ram)
 ADDRESS_MAP_END
-#endif
 
 static ADDRESS_MAP_START( nslasher_map, ADDRESS_SPACE_PROGRAM, 32 )
 	AM_RANGE(0x000000, 0x0fffff) AM_ROM
@@ -937,11 +927,10 @@ static ADDRESS_MAP_START( nslasher_map, ADDRESS_SPACE_PROGRAM, 32 )
 ADDRESS_MAP_END
 
 /******************************************************************************/
-#if 0
+
 static UINT8 bsmt_latch;
 static UINT8 bsmt_reset;
-#endif
-#if 0
+
 static WRITE8_HANDLER(deco32_bsmt_reset_w)
 {
 	UINT8 diff = data ^ bsmt_reset;
@@ -949,26 +938,22 @@ static WRITE8_HANDLER(deco32_bsmt_reset_w)
 	if ((diff & 0x80) && !(data & 0x80))
 		devtag_reset(space->machine, "bsmt");
 }
-#endif
-#if 0
+
 static WRITE8_HANDLER(deco32_bsmt0_w)
 {
 	bsmt_latch = data;
 }
-#endif
-#if 0
+
 static WRITE8_DEVICE_HANDLER(deco32_bsmt1_w)
 {
 	bsmt2000_data_w(device, offset^ 0xff, ((bsmt_latch << 8) | data), 0xffff);
 	cputag_set_input_line(device->machine, "audiocpu", M6809_IRQ_LINE, HOLD_LINE); /* BSMT is ready */
 }
-#endif
-#if 0
+
 static READ8_HANDLER(deco32_bsmt_status_r)
 {
 	return 0x80;
 }
-#endif
 
 static ADDRESS_MAP_START( sound_map, ADDRESS_SPACE_PROGRAM, 8 )
 	AM_RANGE(0x000000, 0x00ffff) AM_ROM
@@ -981,7 +966,6 @@ static ADDRESS_MAP_START( sound_map, ADDRESS_SPACE_PROGRAM, 8 )
 	AM_RANGE(0x1ff400, 0x1ff403) AM_WRITE(h6280_irq_status_w)
 ADDRESS_MAP_END
 
-#if 0
 static ADDRESS_MAP_START( tattass_sound_map, ADDRESS_SPACE_PROGRAM, 8 )
 	AM_RANGE(0x0000, 0x1fff) AM_RAM
 	AM_RANGE(0x2000, 0x2001) AM_WRITE(deco32_bsmt_reset_w)
@@ -991,7 +975,6 @@ static ADDRESS_MAP_START( tattass_sound_map, ADDRESS_SPACE_PROGRAM, 8 )
 	AM_RANGE(0xa000, 0xa0ff) AM_DEVWRITE("bsmt", deco32_bsmt1_w)
 	AM_RANGE(0x2000, 0xffff) AM_ROM
 ADDRESS_MAP_END
-#endif
 
 static READ8_HANDLER(latch_r)
 {
@@ -1292,7 +1275,6 @@ static INPUT_PORTS_START( dragngun )
 	PORT_BIT( 0xff, 0x80, IPT_LIGHTGUN_Y ) PORT_SENSITIVITY(20) PORT_KEYDELTA(25) PORT_PLAYER(2)
 INPUT_PORTS_END
 
-#if 0
 static INPUT_PORTS_START( lockload )
 	PORT_START("IN0")
 	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_UNUSED )
@@ -1372,8 +1354,7 @@ static INPUT_PORTS_START( lockload )
 	PORT_START("LIGHT1_Y")
 	PORT_BIT( 0xff, 0x80, IPT_LIGHTGUN_Y ) PORT_CROSSHAIR(Y, 1.0, 0.0, 0) PORT_SENSITIVITY(20) PORT_KEYDELTA(25) PORT_PLAYER(2)
 INPUT_PORTS_END
-#endif
-#if 0
+
 static INPUT_PORTS_START( tattass )
 	PORT_START("IN0")
 	PORT_BIT( 0x0001, IP_ACTIVE_LOW, IPT_JOYSTICK_UP ) PORT_8WAY PORT_PLAYER(1)
@@ -1411,7 +1392,6 @@ static INPUT_PORTS_START( tattass )
 	PORT_BIT( 0x4000, IP_ACTIVE_LOW, IPT_BUTTON6 ) PORT_PLAYER(2)
 	PORT_BIT( 0x8000, IP_ACTIVE_LOW, IPT_UNUSED )
 INPUT_PORTS_END
-#endif
 
 static INPUT_PORTS_START( nslasher )
 	PORT_START("IN0")
@@ -1516,7 +1496,6 @@ static const gfx_layout tilelayout2 =
 	64*8
 };
 
-#if 0
 static const gfx_layout spritelayout2 =
 {
 	16,16,
@@ -1530,7 +1509,6 @@ static const gfx_layout spritelayout2 =
 	{ 0*8, 1*8, 2*8, 3*8, 4*8, 5*8, 6*8, 7*8, 8*8, 9*8, 10*8, 11*8, 12*8, 13*8, 14*8, 15*8 },
 	32*8
 };
-#endif
 
 static const gfx_layout spritelayout4 =
 {
@@ -1580,7 +1558,6 @@ static GFXDECODE_START( dragngun )
 	GFXDECODE_ENTRY( "gfx4", 0, spritelayout5,       0, 32 )	/* Sprites 16x16 */
 GFXDECODE_END
 
-#if 0
 static GFXDECODE_START( tattass )
 	GFXDECODE_ENTRY( "gfx1", 0, charlayout,          0, 32 )	/* Characters 8x8 */
 	GFXDECODE_ENTRY( "gfx1", 0, tilelayout,          0, 32 )	/* Tiles 16x16 */
@@ -1588,7 +1565,6 @@ static GFXDECODE_START( tattass )
 	GFXDECODE_ENTRY( "gfx3", 0, spritelayout2,    1536, 16 )	/* Sprites 16x16 */
 	GFXDECODE_ENTRY( "gfx4", 0, spritelayout,     1024+256, 32 )	/* Sprites 16x16 */
 GFXDECODE_END
-#endif
 
 static GFXDECODE_START( nslasher )
 	GFXDECODE_ENTRY( "gfx1", 0, charlayout,          0, 32 )	/* Characters 8x8 */
@@ -1633,7 +1609,6 @@ static const ym2151_interface ym2151_interface_nslasher =
 	sound_bankswitch_w
 };
 
-#if 0
 static const UINT8 tattass_default_eprom[0x160] =
 {
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, 0x00,0x00,0x00,0x00,0x4a,0x45,0x4b,0x19,
@@ -1659,15 +1634,13 @@ static const UINT8 tattass_default_eprom[0x160] =
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
 	0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00, 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
 };
-#endif
-#if 0
+
 static const eeprom_interface eeprom_interface_tattass =
 {
 	10,				// address bits 10  ==> } 1024 byte eprom
 	8,				// data bits    8
 };
-#endif
-#if 0
+
 static NVRAM_HANDLER(tattass)
 {
 	if (read_or_write)
@@ -1679,7 +1652,7 @@ static NVRAM_HANDLER(tattass)
 		else memcpy(eeprom_get_data_pointer(NULL,NULL),tattass_default_eprom,0x160);
 	}
 }
-#endif
+
 /**********************************************************************************/
 
 static MACHINE_RESET( deco32 )
@@ -1692,12 +1665,10 @@ static INTERRUPT_GEN( deco32_vbl_interrupt )
 	cpu_set_input_line(device, ARM_IRQ_LINE, HOLD_LINE);
 }
 
-#if 0
 static INTERRUPT_GEN( tattass_snd_interrupt )
 {
 	cpu_set_input_line(device, M6809_FIRQ_LINE, HOLD_LINE);
 }
-#endif
 
 static MACHINE_DRIVER_START( captaven )
 
@@ -1792,7 +1763,6 @@ static MACHINE_DRIVER_START( fghthist )
 	MDRV_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 0.35)
 MACHINE_DRIVER_END
 
-#if 0
 static MACHINE_DRIVER_START( fghthsta )
 
 	/* basic machine hardware */
@@ -1838,7 +1808,6 @@ static MACHINE_DRIVER_START( fghthsta )
 	MDRV_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 0.35)
 	MDRV_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 0.35)
 MACHINE_DRIVER_END
-#endif
 
 static MACHINE_DRIVER_START( dragngun )
 
@@ -1893,7 +1862,6 @@ static MACHINE_DRIVER_START( dragngun )
 	MDRV_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 1.0)
 MACHINE_DRIVER_END
 
-#if 0
 static MACHINE_DRIVER_START( lockload )
 
 	/* basic machine hardware */
@@ -1946,8 +1914,7 @@ static MACHINE_DRIVER_START( lockload )
 	MDRV_SOUND_ROUTE(ALL_OUTPUTS, "lspeaker", 1.0)
 	MDRV_SOUND_ROUTE(ALL_OUTPUTS, "rspeaker", 1.0)
 MACHINE_DRIVER_END
-#endif
-#if 0
+
 static MACHINE_DRIVER_START( tattass )
 
 	/* basic machine hardware */
@@ -1983,7 +1950,6 @@ static MACHINE_DRIVER_START( tattass )
 	MDRV_SOUND_ROUTE(0, "lspeaker", 1.0)
 	MDRV_SOUND_ROUTE(1, "rspeaker", 1.0)
 MACHINE_DRIVER_END
-#endif
 
 static MACHINE_DRIVER_START( nslasher )
 
@@ -2088,7 +2054,6 @@ ROM_START( captaven )
 	ROM_LOAD( "man-11.16k",	0x000000,  0x80000,  CRC(0dc60a4c) SHA1(4d0daa6a0272852a37f341a0cdc48baee0ad9dd8) )
 ROM_END
 
-#if 0
 ROM_START( captavena )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_BYTE( "hn_00.e1",	0x000000, 0x20000, CRC(12dd0c71) SHA1(77bd0e5f1b105ec70de5e76cb9c8138f02a496be) )
@@ -2140,8 +2105,7 @@ ROM_START( captavena )
 	ROM_REGION(0x80000, "oki1", 0 )
 	ROM_LOAD( "man-11.16k",	0x000000,  0x80000,  CRC(0dc60a4c) SHA1(4d0daa6a0272852a37f341a0cdc48baee0ad9dd8) )
 ROM_END
-#endif
-#if 0
+
 ROM_START( captavene )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_BYTE( "hg_00-4.1e",	0x000000, 0x20000, CRC(7008d43c) SHA1(a39143e13075ebc58ecc576391f04d2649675dfb) )
@@ -2199,8 +2163,7 @@ ROM_START( captavene )
 	ROM_LOAD( "pal16l8a.5h",  0x0400, 0x0104, NO_DUMP ) /* PAL is read protected */
 	ROM_LOAD( "pal16r8b.14c", 0x0600, 0x0104, NO_DUMP ) /* PAL is read protected */
 ROM_END
-#endif
-#if 0
+
 ROM_START( captavenu )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_BYTE( "hh_00-19.1e",	0x000000, 0x20000, CRC(08b870e0) SHA1(44c837e3c5dfc9764d89b0ebb3e9b7a40fe4d76f) )
@@ -2252,8 +2215,7 @@ ROM_START( captavenu )
 	ROM_REGION(0x80000, "oki1", 0 )
 	ROM_LOAD( "man-11.16k",	0x000000,  0x80000,  CRC(0dc60a4c) SHA1(4d0daa6a0272852a37f341a0cdc48baee0ad9dd8) )
 ROM_END
-#endif
-#if 0
+
 ROM_START( captavenuu )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_BYTE( "hh-00.1e",	0x000000, 0x20000, CRC(c34da654) SHA1(a1988a6a45991db6dee10b484049f6703b4671c9) )
@@ -2305,8 +2267,7 @@ ROM_START( captavenuu )
 	ROM_REGION(0x80000, "oki1", 0 )
 	ROM_LOAD( "man-11.16k",	0x000000,  0x80000,  CRC(0dc60a4c) SHA1(4d0daa6a0272852a37f341a0cdc48baee0ad9dd8) )
 ROM_END
-#endif
-#if 0
+
 ROM_START( captavenua )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_BYTE( "hh_00-4.2e",   0x000000, 0x20000, CRC(0e1acc05) SHA1(7eb6206efad233f9f4ee51102f9fe6b58f0719ea) )
@@ -2358,8 +2319,7 @@ ROM_START( captavenua )
 	ROM_REGION(0x80000, "oki1", 0 )
 	ROM_LOAD( "man-11.16k",	0x000000,  0x80000,  CRC(0dc60a4c) SHA1(4d0daa6a0272852a37f341a0cdc48baee0ad9dd8) )
 ROM_END
-#endif
-#if 0
+
 ROM_START( captavenj )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_BYTE( "hj_00-2.1e",	0x000000, 0x20000, CRC(10b1faaf) SHA1(9d76885200a846b4751c8d44ff591e2aff7c4148) )
@@ -2411,7 +2371,6 @@ ROM_START( captavenj )
 	ROM_REGION(0x80000, "oki1", 0 )
 	ROM_LOAD( "man-11.16k",	0x000000,  0x80000,  CRC(0dc60a4c) SHA1(4d0daa6a0272852a37f341a0cdc48baee0ad9dd8) )
 ROM_END
-#endif
 
 ROM_START( dragngun )
 	ROM_REGION(0x400000, "maincpu", 0 ) /* ARM 32 bit code */
@@ -2521,7 +2480,6 @@ ROM_START( fghthist )
 	ROM_LOAD( "ve-01.4d",  0x0200, 0x0104, NO_DUMP ) /* PAL16L8 is read protected */
 ROM_END
 
-#if 0
 ROM_START( fghthistu )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_WORD( "kz00-1.1f", 0x000000, 0x80000, CRC(3a3dd15c) SHA1(689b51adf73402b12191a75061b8e709468c91bc) )
@@ -2555,8 +2513,7 @@ ROM_START( fghthistu )
 	ROM_LOAD( "ve-00.3d",  0x0000, 0x0104, NO_DUMP ) /* PAL16L8 is read protected */
 	ROM_LOAD( "ve-01.4d",  0x0200, 0x0104, NO_DUMP ) /* PAL16L8 is read protected */
 ROM_END
-#endif
-#if 0
+
 ROM_START( fghthista )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_WORD( "le-00.1f", 0x000000, 0x80000, CRC(a5c410eb) SHA1(e2b0cb2351782e1155ecc4029010beb7326fd874) )
@@ -2590,8 +2547,7 @@ ROM_START( fghthista )
 	ROM_LOAD( "ve-00.3d",  0x0000, 0x0104, NO_DUMP ) /* PAL16L8 is read protected */
 	ROM_LOAD( "ve-01.4d",  0x0200, 0x0104, NO_DUMP ) /* PAL16L8 is read protected */
 ROM_END
-#endif
-#if 0
+
 ROM_START( fghthistj )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_WORD( "kw00-3.1f", 0x000000, 0x80000, CRC(ade9581a) SHA1(c1302e921f119ff9baeb52f9c338df652e64a9ee) )
@@ -2625,8 +2581,7 @@ ROM_START( fghthistj )
 	ROM_LOAD( "ve-00.3d",  0x0000, 0x0104, NO_DUMP ) /* PAL16L8 is read protected */
 	ROM_LOAD( "ve-01.4d",  0x0200, 0x0104, NO_DUMP ) /* PAL16L8 is read protected */
 ROM_END
-#endif
-#if 0
+
 ROM_START( lockload ) /* Board No. DE-0420-1 + Bottom board DE-0421-0 slightly different hardware, likely a unique PCB and not a Dragongun conversion */
 	ROM_REGION(0x400000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_BYTE( "nl-00-1.b5", 0x000002, 0x80000, CRC(7a39bf8d) SHA1(8b1a6407bab74b3960a243a6c04c0005a82126f1) )
@@ -2699,8 +2654,7 @@ ROM_START( lockload ) /* Board No. DE-0420-1 + Bottom board DE-0421-0 slightly d
 	ROM_REGION(0x80000, "oki3", 0 )
 	ROM_LOAD( "mbm-07.n19",  0x00000, 0x80000,  CRC(414f3793) SHA1(ed5f63e57390d503193fd1e9f7294ae1da6d3539) ) /* Does this go here or "oki2" ?? */
 ROM_END
-#endif
-#if 0
+
 ROM_START( lockloadu )
 	ROM_REGION(0x400000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_BYTE( "nh-00-0.b5", 0x000002, 0x80000, CRC(b8a57164) SHA1(b700a08db2ad1aa1bf0a32635ffbd5d3f08713ee) )
@@ -2786,8 +2740,7 @@ ROM_START( lockloadu )
 	ROM_REGION(0x80000, "oki3", 0 )
 	ROM_LOAD( "mar-07.n19",  0x00000, 0x80000,  CRC(40287d62) SHA1(c00cb08bcdae55bcddc14c38e88b0484b1bc9e3e) )	// same as dragngun, unused?
 ROM_END
-#endif
-#if 0
+
 ROM_START( tattass )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_WORD( "pp44.cpu", 0x000000, 0x80000, CRC(c3ca5b49) SHA1(c6420b0c20df1ae166b279504880ade65b1d8048) )
@@ -2857,8 +2810,7 @@ ROM_START( tattass )
 	ROM_LOAD( "u36.snd",  0x100000, 0x80000,  CRC(3b73abe2) SHA1(195096e2302e84123b23b4ccd982fb3ab9afe42c) )
 	ROM_LOAD( "u37.snd",  0x180000, 0x80000,  CRC(986066b5) SHA1(9dd1a14de81733617cf51293674a8e26fc5cec68) )
 ROM_END
-#endif
-#if 0
+
 ROM_START( tattassa )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* ARM 32 bit code */
 	ROM_LOAD32_WORD( "rev232a.000", 0x000000, 0x80000, CRC(1a357112) SHA1(d7f78f90970fd56ca1452a4c138168568b06d868) )
@@ -2928,7 +2880,6 @@ ROM_START( tattassa )
 	ROM_LOAD( "u36.snd",  0x100000, 0x80000,  CRC(3b73abe2) SHA1(195096e2302e84123b23b4ccd982fb3ab9afe42c) )
 	ROM_LOAD( "u37.snd",  0x180000, 0x80000,  CRC(986066b5) SHA1(9dd1a14de81733617cf51293674a8e26fc5cec68) )
 ROM_END
-#endif
 
 ROM_START( nslasher )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* Encrypted ARM 32 bit code */
@@ -2965,7 +2916,6 @@ ROM_START( nslasher )
 
 ROM_END
 
-#if 0
 ROM_START( nslasherj )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* Encrypted ARM 32 bit code */
 	ROM_LOAD32_WORD( "lx-00.1f", 0x000000, 0x80000, CRC(6ed5fb88) SHA1(84350da7939a479968a523c84e254e3ee54b8da2) )
@@ -2998,8 +2948,7 @@ ROM_START( nslasherj )
 	ROM_REGION(0x80000, "oki2", 0 )
 	ROM_LOAD( "mbh-11.16l", 0x000000,  0x80000,  CRC(0ec40b6b) SHA1(9fef44149608ae2a00f6a75a6f77f2efcab6e78e) )
 ROM_END
-#endif
-#if 0
+
 ROM_START( nslashers )
 	ROM_REGION(0x100000, "maincpu", 0 ) /* Encrypted ARM 32 bit code */
 	ROM_LOAD32_WORD( "ly-00.1f", 0x000000, 0x80000, CRC(fa0646f9) SHA1(7f9633bda230a0ced59171cdc5ab40a6d56c3d34) )
@@ -3032,7 +2981,6 @@ ROM_START( nslashers )
 	ROM_REGION(0x80000, "oki2", 0 )
 	ROM_LOAD( "mbh-11.16l", 0x000000,  0x80000,  CRC(0ec40b6b) SHA1(9fef44149608ae2a00f6a75a6f77f2efcab6e78e) )
 ROM_END
-#endif
 
 static DRIVER_INIT( captaven )
 {
@@ -3064,7 +3012,6 @@ static DRIVER_INIT( fghthist )
 	decoprot_reset(machine);
 }
 
-#if 0
 static DRIVER_INIT( lockload )
 {
 	UINT8 *RAM = memory_region(machine, "maincpu");
@@ -3081,8 +3028,7 @@ static DRIVER_INIT( lockload )
 //  ROM[0x3fe3cc/4]=0xe1a00000;//  NOP test switch lock
 //  ROM[0x3fe40c/4]=0xe1a00000;//  NOP test switch lock
 }
-#endif
-#if 0
+
 static DRIVER_INIT( tattass )
 {
 	UINT8 *RAM = memory_region(machine, "gfx1");
@@ -3103,7 +3049,6 @@ static DRIVER_INIT( tattass )
 	deco56_decrypt_gfx(machine, "gfx1"); /* 141 */
 	deco56_decrypt_gfx(machine, "gfx2"); /* 141 */
 }
-#endif
 
 static DRIVER_INIT( nslasher )
 {
@@ -3137,21 +3082,21 @@ static DRIVER_INIT( nslasher )
 /**********************************************************************************/
 
 GAME( 1991, captaven,   0,        captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (Asia Rev 1.4)", 0 )
-//GAME( 1991, captavena,  captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (Asia Rev 1.0)", 0 )
-//GAME( 1991, captavene,  captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (UK Rev 1.4)", 0 )
-//GAME( 1991, captavenu,  captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (US Rev 1.9)", 0 )
-//GAME( 1991, captavenuu, captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (US Rev 1.6)", 0 )
-//GAME( 1991, captavenua, captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (US Rev 1.4)", 0 )
-//GAME( 1991, captavenj,  captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (Japan Rev 0.2)", 0 )
+GAME( 1991, captavena,  captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (Asia Rev 1.0)", 0 )
+GAME( 1991, captavene,  captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (UK Rev 1.4)", 0 )
+GAME( 1991, captavenu,  captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (US Rev 1.9)", 0 )
+GAME( 1991, captavenuu, captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (US Rev 1.6)", 0 )
+GAME( 1991, captavenua, captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (US Rev 1.4)", 0 )
+GAME( 1991, captavenj,  captaven, captaven, captaven, captaven, ROT0, "Data East Corporation", "Captain America and The Avengers (Japan Rev 0.2)", 0 )
 GAME( 1993, dragngun,   0,        dragngun, dragngun, dragngun, ROT0, "Data East Corporation", "Dragon Gun (US)", GAME_IMPERFECT_GRAPHICS  )
 GAME( 1993, fghthist,   0,        fghthist, fghthist, fghthist, ROT0, "Data East Corporation", "Fighter's History (World ver 43-07)", 0 )
-//GAME( 1993, fghthistu,  fghthist, fghthist, fghthist, fghthist, ROT0, "Data East Corporation", "Fighter's History (US ver 42-03)", 0 )
-//GAME( 1993, fghthista,  fghthist, fghthsta, fghthist, fghthist, ROT0, "Data East Corporation", "Fighter's History (US ver 42-05, alternate hardware )", 0 )
-//GAME( 1993, fghthistj,  fghthist, fghthist, fghthist, fghthist, ROT0, "Data East Corporation", "Fighter's History (Japan ver 42-03)", 0 )
-//GAME( 1994, lockload,   0,        lockload, lockload, lockload, ROT0, "Data East Corporation", "Locked 'n Loaded (World)", GAME_IMPERFECT_GRAPHICS | GAME_NOT_WORKING )
-//GAME( 1994, lockloadu,  lockload, lockload, lockload, lockload, ROT0, "Data East Corporation", "Locked 'n Loaded (US)", GAME_IMPERFECT_GRAPHICS | GAME_NOT_WORKING )
-//GAME( 1994, tattass,    0,        tattass,  tattass,  tattass,  ROT0, "Data East Pinball",     "Tattoo Assassins (US Prototype)", GAME_IMPERFECT_GRAPHICS )
-//GAME( 1994, tattassa,   tattass,  tattass,  tattass,  tattass,  ROT0, "Data East Pinball",     "Tattoo Assassins (Asia Prototype)", GAME_IMPERFECT_GRAPHICS )
+GAME( 1993, fghthistu,  fghthist, fghthist, fghthist, fghthist, ROT0, "Data East Corporation", "Fighter's History (US ver 42-03)", 0 )
+GAME( 1993, fghthista,  fghthist, fghthsta, fghthist, fghthist, ROT0, "Data East Corporation", "Fighter's History (US ver 42-05, alternate hardware )", 0 )
+GAME( 1993, fghthistj,  fghthist, fghthist, fghthist, fghthist, ROT0, "Data East Corporation", "Fighter's History (Japan ver 42-03)", 0 )
+GAME( 1994, lockload,   0,        lockload, lockload, lockload, ROT0, "Data East Corporation", "Locked 'n Loaded (World)", GAME_IMPERFECT_GRAPHICS | GAME_NOT_WORKING )
+GAME( 1994, lockloadu,  lockload, lockload, lockload, lockload, ROT0, "Data East Corporation", "Locked 'n Loaded (US)", GAME_IMPERFECT_GRAPHICS | GAME_NOT_WORKING )
+GAME( 1994, tattass,    0,        tattass,  tattass,  tattass,  ROT0, "Data East Pinball",     "Tattoo Assassins (US Prototype)", GAME_IMPERFECT_GRAPHICS )
+GAME( 1994, tattassa,   tattass,  tattass,  tattass,  tattass,  ROT0, "Data East Pinball",     "Tattoo Assassins (Asia Prototype)", GAME_IMPERFECT_GRAPHICS )
 GAME( 1994, nslasher,   0,        nslasher, nslasher, nslasher, ROT0, "Data East Corporation", "Night Slashers (Korea Rev 1.3)", GAME_IMPERFECT_GRAPHICS )
-//GAME( 1994, nslasherj,  nslasher, nslasher, nslasher, nslasher, ROT0, "Data East Corporation", "Night Slashers (Japan Rev 1.2)", GAME_IMPERFECT_GRAPHICS )
-//GAME( 1994, nslashers,  nslasher, nslasher, nslasher, nslasher, ROT0, "Data East Corporation", "Night Slashers (Over Sea Rev 1.2)", GAME_IMPERFECT_GRAPHICS )
+GAME( 1994, nslasherj,  nslasher, nslasher, nslasher, nslasher, ROT0, "Data East Corporation", "Night Slashers (Japan Rev 1.2)", GAME_IMPERFECT_GRAPHICS )
+GAME( 1994, nslashers,  nslasher, nslasher, nslasher, nslasher, ROT0, "Data East Corporation", "Night Slashers (Over Sea Rev 1.2)", GAME_IMPERFECT_GRAPHICS )

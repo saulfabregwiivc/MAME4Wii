@@ -1,9 +1,9 @@
 ###########################################################################
 #
-#   4wii_mystwarr.mak
+#   4wii_deco32.mak
 #
-#   MAME target makefile for Konami 'Mystic Warriors' driver makefile
-#	Use 'make SUBTARGET=4wii_mystwarr' to build
+#   MAME target makefile for 'Data East DECO32' driver makefile
+#	Use 'make SUBTARGET=4wii_deco32' to build
 #
 #   Copyright Nicola Salmoria and the MAME Team.
 #   Visit  http://mamedev.org for licensing and usage restrictions.
@@ -33,8 +33,10 @@ OBJDIRS += \
 # drivers referenced in tiny.c.
 #-------------------------------------------------
 
-CPUS += M680X0
 CPUS += Z80
+CPUS += ARM
+CPUS += H6280
+CPUS += M6809
 CPUS += MCS48
 
 
@@ -48,7 +50,9 @@ SOUNDS += CUSTOM
 SOUNDS += SAMPLES
 SOUNDS += DAC
 SOUNDS += DISCRETE
-SOUNDS += K054539
+SOUNDS += YM2151
+SOUNDS += OKIM6295
+SOUNDS += BSMT2000
 
 
 
@@ -59,14 +63,17 @@ SOUNDS += K054539
 #-------------------------------------------------
 
 DRVLIBS = \
-	$(MAMEOBJ)/4wii_mystwarr.o \
+	$(MAMEOBJ)/4wii_deco32.o \
 	$(MACHINE)/ticket.o \
-	$(MACHINE)/konamigx.o \
-	$(VIDEO)/konamiic.o \
-	$(DRIVERS)/mystwarr.o $(VIDEO)/mystwarr.o \
+	$(MACHINE)/decoprot.o \
+	$(MACHINE)/decocrpt.o \
+	$(MACHINE)/deco156.o \
+	$(VIDEO)/deco16ic.o \
+	$(DRIVERS)/deco32.o $(VIDEO)/deco32.o \
 
 
 
 #-------------------------------------------------
 # layout dependencies
 #-------------------------------------------------
+
